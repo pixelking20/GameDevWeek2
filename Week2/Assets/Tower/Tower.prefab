@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 7954385689525862342}
   - component: {fileID: 7954385689525862343}
   - component: {fileID: 3908147687210074802}
+  - component: {fileID: 5066667139599245349}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -198,3 +199,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf6026c97219a14fb7d87ed192b0787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5066667139599245349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7954385689525862340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d72e143bd3bb4f4ea361d11deee1748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereTemplate: {fileID: 1280446165479950336, guid: 57bdc7017b565cb4eb9e15e595949288,
+    type: 3}
+  spawnedSphere: {fileID: 0}
+  sphereSpeed: 100
