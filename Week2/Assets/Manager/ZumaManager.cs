@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class ZumaManager : MonoBehaviour
 {
-    public List<int> ballArray = new List<int>();
+    public List<GameObject> ballArray = new List<GameObject>();
     public int score = 0;
     public int scoreTarget;
     public float timer;
     public int typeCount = 4;
     public int TestInsertPosition;
-    public int TestBallType;
+    public GameObject TestBall;
     // Start is called before the first frame update
     void Start()
     {
         for(int i = 0; i < 10; i++)
         {
-            ballArray.Add(Random.Range(0,4));
+            GameObject newBall = Instantiate(TestBall, transform.position, transform.rotation);
+            ballArray.Add(newBall);
         }
     }
 
@@ -27,47 +28,23 @@ public class ZumaManager : MonoBehaviour
         if(timer >= 1f && score < scoreTarget)
         {
             timer = 0;
-            ballArray.Add(Random.Range(0,typeCount));
+            //ballArray.Add(Random.Range(0,typeCount));
         }
         if(Input.GetKeyDown(KeyCode.Space))
-            DestroyBallChainAtInsert(TestInsertPosition, TestBallType, 0);
+            DestroyBallChainAtInsert(TestInsertPosition, Instantiate(TestBall, transform.position, transform.rotation), 0);
     }
 
-    void DestroyBallChain()
-    {
-        int chainLength = 0;
-        int removeStart = -1;
-        for(int i = 0; i < ballArray.Count; i++)
-        {
-            chainLength = 1;
-            for(int j = i+1; j < ballArray.Count; j++)
-            {
-                if(ballArray[i] == ballArray[j])
-                    chainLength++;
-                else
-                    break;
-            }
-            if(chainLength >= 3)
-            {
-                removeStart = i;
-                break;
-            }
-        }
-        if(removeStart != -1)
-            ballArray.RemoveRange(removeStart, chainLength);
-    }
-
-    void DestroyBallChainAtInsert(int insertPosition, int ballType, int combo)
+    void DestroyBallChainAtInsert(int insertPosition, GameObject ball, int combo)
     {
         int chainLength = 1;
         int removeStart = -1;
         int leftSize = 0;
-        if(ballType != -1)
-            ballArray.Insert(insertPosition, ballType);
+        if(ball != null)
+            ballArray.Insert(insertPosition, ball);
 
         for(int i = insertPosition+1; i < ballArray.Count; i++)
         {
-            if(ballArray[insertPosition] == ballArray[i])
+            if(ballArray[insertPosition].GetComponent<BallScript>().type == ballArray[i].GetComponent<BallScript>().type)
                 chainLength++;
             else
                 break;
@@ -75,7 +52,7 @@ public class ZumaManager : MonoBehaviour
 
         for(int i = insertPosition-1; i >= 0; i--)
         {
-            if(ballArray[insertPosition] == ballArray[i])
+            if(ballArray[insertPosition].GetComponent<BallScript>().type == ballArray[i].GetComponent<BallScript>().type)
             {
                 chainLength++;
                 leftSize++;
@@ -95,9 +72,14 @@ public class ZumaManager : MonoBehaviour
 
         if(removeStart != -1)
         {  
-            ballArray.RemoveRange(removeStart, chainLength);
+            for(int i = removeStart; i < removeStart + chainLength; i++)
+            {
+                Destroy(ballArray[i]);
+                ballArray[i] = null;
+            }
+            ballArray.RemoveAll(GameObject => GameObject == null);
             if(ballArray.Count > removeStart && ballArray[removeStart] == ballArray[removeStart-1])
-                DestroyBallChainAtInsert(removeStart, -1, ++combo);
+                DestroyBallChainAtInsert(removeStart, null, ++combo);
         }
             
     }
