@@ -18,10 +18,6 @@ public class ZumaManager : MonoBehaviour
         newBall.GetComponent<BallScript>().indexPos = 0;
         newBall.GetComponent<BallScript>().positionLock = true;
         ballArray.Add(newBall);
-        for(int i = 0; i < 9; i++)
-        {
-            //Instantiate(TestBall, transform.position, transform.rotation);
-        }
     }
 
     void Update()
@@ -30,7 +26,10 @@ public class ZumaManager : MonoBehaviour
         if(timer >= 1f && score < scoreTarget)
         {
             timer = 0;
-            // ballArray.Add(Random.Range(0,typeCount));
+            GameObject newBall = Instantiate(TestBall, transform.position, transform.rotation);
+            newBall.GetComponent<BallScript>().indexPos = ballArray.Count;
+            newBall.GetComponent<BallScript>().positionLock = true;
+            ballArray.Add(newBall);
         }
         if(Input.GetKeyDown(KeyCode.Space))
             DestroyBallChainAtInsert(TestInsertPosition, Instantiate(TestBall, transform.position, transform.rotation), 0);
