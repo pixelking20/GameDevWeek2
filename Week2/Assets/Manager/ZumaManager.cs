@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ZumaManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ZumaManager : MonoBehaviour
     public int typeCount = 4;
     public int TestInsertPosition;
     public GameObject TestBall; //bruh;
+
+    public Text scoreText;
 
     void Start()
     {
@@ -31,8 +34,11 @@ public class ZumaManager : MonoBehaviour
             newBall.GetComponent<BallScript>().positionLock = true;
             ballArray.Add(newBall);
         }
+
         if(Input.GetKeyDown(KeyCode.Space))
             DestroyBallChainAtInsert(TestInsertPosition, Instantiate(TestBall, transform.position, transform.rotation), 0);
+
+        scoreText.text = "Score: " + score + "\nTarget Score: " + scoreTarget;
     }
 
     public void DestroyBallChainAtInsert(int insertPosition, GameObject ball, int combo)
