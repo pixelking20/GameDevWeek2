@@ -22,7 +22,6 @@ public class PathManager : MonoBehaviour
             while (Vector3.Distance(nextPathPoint, pathHead) > 1.0f){
                 //fills in the dictionary with the current head of the path.
                 pathPositions.Add(pathHead);
-                Instantiate(sphere, pathHead, Quaternion.identity);
                 //moves the pathhead towards the next point to get the next position for the dictionary
                 pathHead = pathHead + (Vector3.Normalize(nextPathPoint - pathHead));
                 x++;

@@ -19,7 +19,7 @@ public class TowerFacing : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RayHit)){
-            transform.forward = RayHit.point - transform.position;
+            transform.forward = new Vector3(RayHit.point.x, 0, RayHit.point.z) - transform.position;
         }
     }
 }
