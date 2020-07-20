@@ -5,6 +5,12 @@ using UnityEngine;
 public class ZumaManager : MonoBehaviour
 {
     public List<int> ballArray = new List<int>();
+    public int score = 0;
+    public int scoreTarget;
+    public float timer;
+    public int typeCount = 4;
+    public int TestInsertPosition;
+    public int TestBallType;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +23,14 @@ public class ZumaManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+        if(timer >= 1f && score < scoreTarget)
+        {
+            timer = 0;
+            ballArray.Add(Random.Range(0,typeCount));
+        }
         if(Input.GetKeyDown(KeyCode.Space))
-            DestroyBallChain();
+            DestroyBallChainAtInsert(TestInsertPosition, TestBallType, 0);
     }
 
     void DestroyBallChain()
@@ -35,15 +47,58 @@ public class ZumaManager : MonoBehaviour
                 else
                     break;
             }
-            if(chainLength > 2)
+            if(chainLength >= 3)
             {
-                print("Breaking chain of length:" + chainLength);
                 removeStart = i;
                 break;
             }
         }
-        print("Remove Position " + removeStart);
         if(removeStart != -1)
-            ballArray.RemoveRange(removeStart, removeStart+chainLength-1);
+            ballArray.RemoveRange(removeStart, chainLength);
+    }
+
+    void DestroyBallChainAtInsert(int insertPosition, int ballType, int combo)
+    {
+        int chainLength = 1;
+        int removeStart = -1;
+        int leftSize = 0;
+        if(ballType != -1)
+            ballArray.Insert(insertPosition, ballType);
+
+        for(int i = insertPosition+1; i < ballArray.Count; i++)
+        {
+            if(ballArray[insertPosition] == ballArray[i])
+                chainLength++;
+            else
+                break;
+        }
+
+        for(int i = insertPosition-1; i >= 0; i--)
+        {
+            if(ballArray[insertPosition] == ballArray[i])
+            {
+                chainLength++;
+                leftSize++;
+            }
+            else
+                break;
+        }
+
+        if(chainLength >= 3)
+        {
+            removeStart = insertPosition - leftSize;
+            
+            print((chainLength * 10 + 50 * combo));
+            score += (chainLength * 10 + 50 * combo);
+        }
+
+
+        if(removeStart != -1)
+        {  
+            ballArray.RemoveRange(removeStart, chainLength);
+            if(ballArray.Count > removeStart && ballArray[removeStart] == ballArray[removeStart-1])
+                DestroyBallChainAtInsert(removeStart, -1, ++combo);
+        }
+            
     }
 }
