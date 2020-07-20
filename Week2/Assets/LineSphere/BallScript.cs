@@ -5,15 +5,27 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     public int type = 0;
-    // Start is called before the first frame update
+    public int indexPos;
+    public bool positionLock = false;
+    public ZumaManager manager;
+
     void Start()
     {
-        //type = Random.Range(0,4);
+        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<ZumaManager>();
+        type = Random.Range(0,manager.typeCount);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+    void OnTriggerEnter(Collider collider)
+    {
+        if(!positionLock && collider.tag == "Balls")
+        {
+            indexPos = collider.GetComponent<BallScript>().indexPos;
+            manager.DestroyBallChainAtInsert(indexPos, this.gameObject, 0);
+        }
+        positionLock = true;
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7462965491009092013}
   m_Layer: 0
   m_Name: ZumaManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,3 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf1b5c42689ed64fb4b02ff04b79ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballArray: []
+  score: 0
+  scoreTarget: 0
+  timer: 0
+  typeCount: 4
+  TestInsertPosition: 0
+  TestBall: {fileID: 1280446165479950336, guid: 57bdc7017b565cb4eb9e15e595949288,
+    type: 3}

@@ -375,6 +375,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZumaManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2514345475681031727, guid: ea419a7e1e3263244ba3581cbadb494f,
+        type: 3}
+      propertyPath: m_TagString
+      value: GameController
+      objectReference: {fileID: 0}
     - target: {fileID: 2514345475681031726, guid: ea419a7e1e3263244ba3581cbadb494f,
         type: 3}
       propertyPath: m_LocalPosition.x
