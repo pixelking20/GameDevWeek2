@@ -18,7 +18,6 @@ public class TowerShooting : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1")){
             spawnedSphere  = Instantiate(sphereTemplate, transform.position + transform.forward*2, Quaternion.identity);
-            print(spawnedSphere.GetComponent<Rigidbody>());
             spawnedSphere.GetComponent<Rigidbody>().AddForce(transform.forward * sphereSpeed);
             spawnedSphere = null;
         }
