@@ -11,13 +11,15 @@ public class ZumaManager : MonoBehaviour
     public float timer;
     public int typeCount = 4;
     public int TestInsertPosition;
+    public Vector3 spawnPosition;
     public GameObject TestBall; //bruh;
 
     public Text scoreText;
 
     void Start()
     {
-        GameObject newBall = Instantiate(TestBall, transform.position, transform.rotation);
+        spawnPosition = GameObject.FindGameObjectWithTag("PathManager").GetComponent<PathManager>().pathPositions[0];
+        GameObject newBall = Instantiate(TestBall, spawnPosition, transform.rotation);
         newBall.GetComponent<BallScript>().indexPos = 0;
         newBall.GetComponent<BallScript>().positionLock = true;
         ballArray.Add(newBall);
@@ -29,7 +31,7 @@ public class ZumaManager : MonoBehaviour
         if(timer >= 1f && score < scoreTarget)
         {
             timer = 0;
-            GameObject newBall = Instantiate(TestBall, transform.position, transform.rotation);
+            GameObject newBall = Instantiate(TestBall, spawnPosition, transform.rotation);
             newBall.GetComponent<BallScript>().indexPos = ballArray.Count;
             newBall.GetComponent<BallScript>().positionLock = true;
             ballArray.Add(newBall);
