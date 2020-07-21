@@ -111,8 +111,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   indexPos: 0
+  nextPosition: {x: 0, y: 0, z: 0}
+  positionlist: []
   positionLock: 0
   manager: {fileID: 0}
+  mats:
+  - {fileID: 2100000, guid: b7178c9975694e24cab9f26ad9c43b47, type: 2}
+  - {fileID: 2100000, guid: 7b8dd71d53476d247a146624d15052cc, type: 2}
+  - {fileID: 2100000, guid: 3d01ee7542ec04843b153e768057f6f0, type: 2}
+  - {fileID: 2100000, guid: 037319c0c4ed2cd4981c8728608d21c7, type: 2}
 --- !u!65 &7005571986629636108
 BoxCollider:
   m_ObjectHideFlags: 0
